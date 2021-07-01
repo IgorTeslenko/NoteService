@@ -8,7 +8,7 @@ import java.math.BigInteger;
 
 @Data
 @RequiredArgsConstructor
-@Document(collection = "NoteService.notes")
+@Document(collection = "notes")
 public class Note {
 
     @Id
@@ -16,6 +16,7 @@ public class Note {
 
     @NonNull
     private String body;
+
     @NonNull
     private BigInteger userId;
 }

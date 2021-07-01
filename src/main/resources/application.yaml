@@ -1,7 +1,8 @@
 server:
   servlet:
     context-path: /api
+  port: 8080
 spring:
   data:
     mongodb:
-      uri:
+      uri: ${mongodb_uri}

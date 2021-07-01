@@ -13,11 +13,16 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/notes")
-@Log
 @RequiredArgsConstructor
 public class NoteController {
 
     private final NoteService noteService;
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Note addNote(@RequestBody NoteDto notedto) {
+        return noteService.addNote(notedto);
+    }
 
     @GetMapping
     public List<Note> findAll() {
@@ -34,33 +39,23 @@ public class NoteController {
         return noteService.getAllByUserId(userId);
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Note addNote(@RequestBody NoteDto notedto) {
-        return noteService.addNote(notedto);
-    }
-
     @PutMapping
-    @ResponseStatus(HttpStatus.OK)
-    public Note updateNote(@RequestBody Note note) {
-        return noteService.updateNote(note);
+    public Note updateNote(@RequestBody NoteDto noteDto) {
+        return noteService.updateNote(noteDto);
     }
 
     @DeleteMapping
-    @ResponseStatus(HttpStatus.OK)
     public void deleteANote(@RequestParam BigInteger noteId) {
         noteService.deleteOne(noteId);
     }
 
     @DeleteMapping("/user")
-    @ResponseStatus(HttpStatus.OK)
     public void deleteAllByUserId(@RequestParam BigInteger userId) {
         noteService.deleteAllByUserId(userId);
     }
 
-    //deprecated
+    //для отладки, чтобы быстро базу очищать
     @DeleteMapping("/flush_all")
-    @ResponseStatus(HttpStatus.OK)
     public void deleteAll() {
         noteService.deleteAll();
     }

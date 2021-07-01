@@ -6,7 +6,7 @@ import java.math.BigInteger;
 
 @Data
 public class NoteDto {
-    private BigInteger noteId;
-    private String noteBody;
-    private BigInteger noteUserId;
+    private BigInteger id;
+    private String body;
+    private BigInteger userId;
 }

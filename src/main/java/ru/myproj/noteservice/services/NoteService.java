@@ -30,19 +30,16 @@ public class NoteService {
     }
 
     public Note addNote(NoteDto noteDto) {
-        Note newNote = new Note(noteDto.getNoteBody(), noteDto.getNoteUserId());
-        log.info("Created new Note: " + newNote);
-        return noteRepository.save(newNote);
+        return noteRepository.save(new Note(noteDto.getBody(), noteDto.getUserId()));
     }
 
-    //не понимаю как здесь нормально сделать, возможно нужен адаптер для Note - NoteDto
-    public Note updateNote(Note note) {
-        if (!noteRepository.existsById(note.getId())) {
-            Note newNote = new Note(note.getBody(), note.getUserId());
-            log.info("Created new Note: " + newNote);
-            return noteRepository.save(newNote);
+    public Note updateNote(NoteDto noteDto) {
+        if (!noteRepository.existsById(noteDto.getId())) {
+            return noteRepository.save(new Note(noteDto.getBody(), noteDto.getUserId()));
         }
-        log.info("Note with ID: " + note.getId() +" has been updated");
+        Note note = noteRepository.getNoteById(noteDto.getId());
+        note.setBody(noteDto.getBody());
+        note.setUserId(noteDto.getUserId());
         return noteRepository.save(note);
     }
 
