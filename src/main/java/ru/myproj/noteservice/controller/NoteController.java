@@ -1,12 +1,11 @@
-package ru.myproj.noteservice.controllers;
+package ru.myproj.noteservice.controller;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.myproj.noteservice.models.Note;
-import ru.myproj.noteservice.models.dtos.NoteDto;
-import ru.myproj.noteservice.services.NoteService;
+import ru.myproj.noteservice.model.Note;
+import ru.myproj.noteservice.model.dto.NoteDTO;
+import ru.myproj.noteservice.service.NoteService;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -20,7 +19,7 @@ public class NoteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Note addNote(@RequestBody NoteDto notedto) {
+    public Note addNote(@RequestBody NoteDTO notedto) {
         return noteService.addNote(notedto);
     }
 
@@ -31,7 +30,7 @@ public class NoteController {
 
     @GetMapping("/{noteId}")
     public Note findANote(@PathVariable BigInteger noteId){
-        return noteService.getById(noteId);
+        return noteService.findById(noteId);
     }
 
     @GetMapping("/user/{userId}")
@@ -40,13 +39,13 @@ public class NoteController {
     }
 
     @PutMapping
-    public Note updateNote(@RequestBody NoteDto noteDto) {
+    public Note updateNote(@RequestBody NoteDTO noteDto) {
         return noteService.updateNote(noteDto);
     }
 
     @DeleteMapping
-    public void deleteANote(@RequestParam BigInteger noteId) {
-        noteService.deleteOne(noteId);
+    public void deleteNote(@RequestParam BigInteger noteId) {
+        noteService.deleteNote(noteId);
     }
 
     @DeleteMapping("/user")
