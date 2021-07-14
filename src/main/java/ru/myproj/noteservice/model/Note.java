@@ -1,4 +1,4 @@
-package ru.myproj.noteservice.models;
+package ru.myproj.noteservice.model;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
